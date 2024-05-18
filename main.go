@@ -71,6 +71,10 @@ func main() {
 
 	// Explicitly serve index.html at the root
 	r.StaticFile("/", "chat-ui/build/index.html")
+	// Serve not routing requests like get /create-user
+	r.NoRoute(func(c *gin.Context) {
+		c.File("ui/build/index.html")
+	})
 	// Serve static files under /static
 	r.StaticFS("/static", http.Dir("chat-ui/build/static"))
 
